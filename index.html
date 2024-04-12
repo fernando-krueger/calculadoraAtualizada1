@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fontawesome.com/icons/circle-check?f=classic&s=regular&pc=%238ce89e">
+<script src="https://kit.fontawesome.com/75e9add772.js" crossorigin="anonymous"></script>
+<style>
+
+  *{
+    font-family: Inter;
+    color: #0B436A;
+  }
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  margin: 0;
+  min-width: 1200px;
+  max-width: 1800px
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+button {
+  margin-top: 1em;
+}
+#tela1, #tela2, #tela3 {
+  display: none;
+}
+#quadro{
+  border:1px solid grey;
+  margin: 15%;
+  border-radius: 7px;
+  width: 70%;
+  background-color: #f4f4f4;  
+}
+#quadroInterno{
+margin: 6%;
+}
+input{
+  width: 100%;
+  padding: 10px 0px;
+  text-indent: 10px;
+  margin-bottom:35px;
+  margin-top: 5px;
+  font-size: 15px;
+}
+/* Esconde o input original */
+input[type='radio'] {
+  display: none;
+}
+/* Cria uma nova caixa de seleção */
+input[type='radio'] + label {
+  position: relative;
+  padding-left: 3%;
+  margin-right: 3%;
+  cursor: pointer;
+  display: inline-block;
+  color: #666;
+}
+/* Estiliza a nova caixa de seleção */
+input[type='radio'] + label:before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #00c582;
+  border-radius: 3px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+/* Estiliza a caixa de seleção quando selecionada */
+input[type='radio']:checked + label:before {
+  content: "✔";
+  color: white;
+  background-color: #00c582;
+  text-align: center;
+  line-height: 17px;
+}
+.radio-input {
+  width: auto; 
+  margin:2px;
+}
+select{
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 10px;
+  font-size: 15px;
+}
+label{  
+}
+.btn_prox1{
+  width: 23%;
+  padding: 10px;
+  margin-right: 0%;
+  margin-top: -10px;
+  float: right;
+  background-color: #00c582;
+  border: none;
+  color: white;
+  border-radius: 3px;
+}
+#btnvoltar{
+    width: 20%;
+  padding: 10px;
+  margin-right: 10px; 
+  border-radius: 3px;
+  background-color:#0b436a;
+  border: none;
+  color: white; 
+}
+#btn_prox{
+  width: 35%;
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #00c582;
+  border: none;
+  color: white;
+  border-radius: 3px;
+}
+/*tela4*/ 
+#btnimprimir{
+  width: 20%;
+  padding: 10px;
+  background: rgb(11,67,106);
+  background: linear-gradient(90deg, rgba(11,67,106,1) 0%, rgba(18,114,182,1) 100%);
+  border: none;
+  color: white;
+  height: 40px;
+  border-radius: 3px;
+  margin-left:  40%;
+}
+    #dados_usuario .dados p{
+    border: 1px solid #2e2e3f;
+    border-radius : 3px 3px 3px 3px;
+    padding: auto;
+    color: #2e2e3f;
+    padding:10px;
+    margin-top: 5px;
+    background-color: white;
+    }
+   .dados {
+       
+        float: left;
+        width: 45%;
+        margin-bottom: 20px;    
+    } 
+    #respostas{
+    margin-top: 30px;
+    }
+    #aprovacao {
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 5;
+    }              
+    #borderback{
+    position: absolute;
+    border: 2px solid #0b436a ;
+    border-radius: 10px; 
+    margin-top: -2.5% ;
+    opacity: 0.4;
+    height: 100%; 
+    padding-top: 10px;
+    padding-bottom: 25px;
+    width: 90%;
+    margin-left: 5% ;  
+    }  
+   #id_compartilhar {
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-color:#2c2c3d ;
+  border: 1px solid black;
+  font-weight: bold;
+  color:#eaeaea;
+  width: 220px;
+  height: 40px;
+  margin-left: 2.5%;
+  margin-top: 0px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  letter-spacing: 0.6px;
+}
+button{
+ cursor: pointer;
+}
+@media print{
+     #aprovacao{
+      color: red;
+      font-weight: 500;
+      opacity: 1;
+     }
+     #respostas{
+      color: black;
+     }
+      #quadro{
+       width: 95%;
+       border: none;
+      }  
+      #quadrointerno{
+       margin-right: auto;
+       flex: 1;
+      }
+      button{
+       display: none;
+      }  
+      #borderback{
+       display: none;
+      }  
+      #logo{
+       display: block !important;
+       margin-bottom: 30px;
+      }           
+}
+</style>
+</head>
+<body>
+
+
+<div id="quadro">
+  <div id="quadroInterno">
+ <form class="" id="tela1">
+        <label for="CNPJ">CNPJ:</label><br>
+        <input type="text" id="cnpj" name="cnpj" data-mask="00.000.000/0000-00" onblur="checkCnpj(this.value)"><br>
+        <label for="Razao">Razão Social:</label><br>
+        <input type="text" id="razao" name="razao"  readonly><br>
+        <p>Regime Tributário:</p> 
+        <input type="radio" class="radio-input" id="simplesNacional" name="regime" value="simplesNacional">
+        <label for="simplesNacional">Simples Nacional</label>
+        <input type="radio" class="radio-input" id="real" name="regime" value="real">
+        <label for="real">Lucro Real</label>
+        <input type="radio" class="radio-input" id="presumido" name="regime" value="presumido">
+        <label for="presumido">Cumulativo (Lucro Presumido)</label>
+        
+        <button class="btn_prox1" id="btnProximaEtapa" type="button">Próxima etapa</button>
+    </form>
+<form id="tela2">
+  <label for="ramo">Ramo da Empresa:</label><br>
+  <select id="ramo" name="ramo">
+   <option value="">Selecione o ramo da sua empresa...</option>
+   <option value="mercado">Mercado</option>
+   <option value="distribuidorAlimentos">Distribuidor alimentos</option>
+   <option value="distribuidorMercadoriasGeral">Distribuidor de mercadorias em geral</option>
+   <option value="postoCombustivel">Posto de combustível</option>
+   <option value="distribuidoraGasCombustiveis">Distribuidora de gás e combustíveis</option>
+   <option value="cosmeticosPerfumaria">Cosméticos e perfumaria</option>
+   <option value="farmacias">Farmácias</option>
+   <option value="lojaBebidas">Loja de bebidas</option>
+   <option value="lojaPecasPneus">Loja de Peças / Pneus</option>
+   <option value="lojaMateriaisConstrucao">Loja de materiais de construção</option>
+   <option value="mineracao">Mineração</option>
+   <option value="produtorRural">Produtor Rural (PF ou PJ)</option>
+   <option value="agroindustria">Agroindustria</option>
+   <option value="industriaGeral">Indústria em geral</option>
+   <option value="barPadariaPizzariaRestaurante">Bar / Padaria / Pizzaria / Restaurante</option>
+   <option value="turismoHotelTransportePessoas">Turismo / Hotel / Transporte de pessoas</option>
+   <option value="construtora">Construtora</option>
+   <option value="transportadora">Transportadora</option>
+   <option value="profissionalLiberal">Profissional liberal (Médico, Engenheiro, etc.)</option>
+   <option value="clinicas">Clínicas</option>
+
+  </select><br>
+  <label for="faturamento">Faturamento Médio Anual:</label><br>
+  <select id="faturamento" name="faturamento">
+
+   <option value="">Selecione o faturamento anual...</option>
+   <option value="ate3.6milhoes">Até R$ 3.600.000,00</option>
+   <option value="de3.6milhoesa10milhoes">De R$ 3.600.000,00 a R$ 10.000.000,00</option>
+   <option value="de10milhoesa60milhoes">De R$ 10.000.000,00 a R$ 60.000.000,00</option>
+   <option value="de60milhoesa150milhoes">De R$ 60.000.000,00 a R$ 150.000.000,00</option>
+   <option value="acima150milhoes">Acima de R$ 150.000.000,00</option>
+
+  </select><br>
+  <label for="funcionarios">Número de Funcionários:</label><br>
+  <select id="funcionarios" name="funcionarios">
+   <option value="">Selecione o número de funcionários...</option>
+   <option value="ate15">Até 15 funcionários</option>
+   <option value="de15a50">De 15 a 50 funcionários</option>
+   <option value="de50a200">De 50 a 200 funcionários</option>
+   <option value="acima200">Acima de 200</option>
+
+  </select><br>
+  <label for="pagou">Pagou valores de IRPJ/CSLL desde 2018?</label><br>
+  <select id="pagou" name="pagou">
+      <option value="">Selecione se teve valores pagos de IRPJ/CSLL...</option>
+      <option value="sim">Sim</option>
+      <option value="nao">Não</option>
+      <option value="somenteAlgunsPeriodos">Somente alguns períodos</option>
+  </select><br>
+  <label for="acao">Já tem ação de recuperação tributária?</label><br>
+  <select id="acao" name="acao">
+      <option value="">Selecione se tem ação de recuperação...</option>
+      <option value="simExclusaoICMSAnterior2019">Sim, de exclusão de ICMS anterior a 2019</option>
+      <option value="simUltimos5anos">Sim, dentro dos ultimos 5 anos</option>
+      <option value="naoPossui">Não</option>
+      <option value="naoTemCerteza">Não tem certeza</option>
+  </select><br>
+  <button id="btnvoltar" type="button">Voltar</button>
+  <button onclick="testarVariaveis()" id="btn_prox" type="button">Simular agora!</button>
+</form>
+<div id="tela4" style="margin-right: 0px; display: none;">
+<img id="logo" src="C:\Users\Positivo\Desktop\projeto save\LOGO - RECUPERATAX.png" style="display: none;"> 
+<div id="dados_usuario" class="dados_usuario">
+    <span class="dados"> CNPJ da empresa<p id="displaycnpj"></p></span>
+    <span class="dados" style="float: right;"> Razão social<p id="displayrazao"></p></span> 
+</div>
+<h5 style="text-align:left; margin-top:10px; font-size: 15px; font-weight: 500 ;  clear: both;">Com base nos dados disponibilizados pela empresa, o diagnóstico prévio tem por objetivo mensurar as teses passíveis de recuperação tributária. 
+Segue abaixo as oportunidades:</h5>
+<div id="respostas">   
+    <div id="aprovacao"><div id="borderback"></div></div> 
+ </div>
+<h5 style="text-align:left; margin-top:10px; margin: 5% 0%; font-size: 15px; font-weight: 500 ;  ">Diante do exposto, gostaríamos de aproveitar a oportunidade e confiança para darmos sequência ao projeto, realizando o diagnóstico completo e apresentando valores reais de cada tese. 
+</h5>
+<div style=" ">
+<button id="btnimprimir" type="button" onclick="window.print(); return false;" style="">Imprimir</button></div>
+</div>
+</div>
+</div>
+</div>
+</body>
+
+
+
+
+
+
+
+<script type="text/javascript">
+//mudança de tela
+var tela1 = document.getElementById('tela1');
+var tela2 = document.getElementById('tela2');
+var tela4 = document.getElementById('tela4');
+var botaoProximo1 = tela1.querySelector('button');
+var botaoVoltar2 = tela2.querySelectorAll('button')[0];
+var botaoSimular = tela2.querySelectorAll('button')[1];
+var botaoVoltar4 = tela4.querySelectorAll('button')[0];
+//primeira tela quando a página é carregadas
+tela1.style.display = 'block';
+
+botaoProximo1.onclick = function() {
+  var cnpjValue = document.getElementById('cnpj').value.trim();
+  var razaoValue = document.getElementById('razao').value.trim();
+  var regimeSelecionado = document.querySelector('input[name="regime"]:checked'); // Verifica se algum regime foi selecionado
+/*
+  // Verificar se o CNPJ ou a Razão Social estão vazios
+  if (cnpjValue === '') {
+    alert('Por favor, digite o CNPJ.');
+    // Manter a primeira tela visível e a segunda tela oculta
+    tela1.style.display = 'block';
+    tela2.style.display = 'none';
+  } else if (razaoValue === '') {
+    alert('Por favor, digite a Razão Social.');
+    // Manter a primeira tela visível e a segunda tela oculta
+    tela1.style.display = 'block';
+    tela2.style.display = 'none';
+  } else if (cnpjValue.length !== 18) {
+    alert('Por favor, digite o CNPJ corretamente.');
+    // Manter a primeira tela visível e a segunda tela oculta
+    tela1.style.display = 'block';
+    tela2.style.display = 'none';
+  } else*/ if (!regimeSelecionado) { // Verifica se nenhum regime foi selecionado
+    alert('Por favor, selecione um regime tributário.');
+    // Manter a primeira tela visível e a segunda tela oculta
+    tela1.style.display = 'block';
+    tela2.style.display = 'none';}
+  else {
+    // Se ambos CNPJ e Razão Social estiverem preenchidos e o CNPJ tiver o comprimento correto,
+    // ocultar a primeira tela e exibir a segunda tela
+    tela1.style.display = 'none';
+    tela2.style.display = 'block';
+  }};
+botaoVoltar2.onclick = function() {
+  tela2.style.display = 'none';
+  tela1.style.display = 'block';
+};
+botaoSimular.onclick = function() {
+  var ramoValue = document.getElementById('ramo').value.trim();
+  var faturamentoValue = document.getElementById('faturamento').value.trim();
+  var funcionariosValue = document.getElementById('funcionarios').value.trim();
+  var pagouValue = document.getElementById('pagou').value.trim();
+  var acaoValue = document.getElementById('acao').value.trim();
+  if (ramoValue === '') {
+    alert('Por favor, digite o ramo da empresa.');
+    tela2.style.display = 'block';
+    tela3.style.display = 'none';
+  } else if (faturamentoValue === '') {
+    alert('Por favor, digite o faturamento médio mensal.');
+    tela2.style.display = 'block';
+    tela3.style.display = 'none';
+  } else if (funcionariosValue === '') {
+    alert('Por favor, digite o número de funcionários.');
+    tela2.style.display = 'block';
+    tela3.style.display = 'none';
+  } else if (pagouValue === '') {
+    alert('Por favor, selecione se pagou valores de IRPJ/CSLL desde 2018.');
+    tela2.style.display = 'block';
+    tela3.style.display = 'none';
+  } else if (acaoValue === '') {
+    alert('Por favor, selecione se já tem ação de recuperação tributária.');
+    tela2.style.display = 'block';
+    tela3.style.display = 'none';
+  } else {
+    tela2.style.display = 'none';
+    tela4.style.display = 'block';
+  }
+//tela 4 logica calculadora
+  var cnpj = document.getElementById("cnpj").value;
+  var razao = document.getElementById("razao").value;
+  var regimeRadio = document.querySelector('input[name="regime"]:checked');
+  var regime = regimeRadio ? regimeRadio.value : null;
+  var ramo = document.getElementById("ramo").value;
+  var faturamento = document.getElementById("faturamento").value;
+  var pagou = document.getElementById("pagou").value;
+  var funcionarios = document.getElementById("funcionarios").value;
+  var acao = document.getElementById("acao").value;
+  
+    var spanCnpj = document.getElementById('cnpj');
+    var spanrazao = document.getElementById('razao');
+    
+    displaycnpj.textContent = cnpj;
+    displayrazao.textContent = razao;
+   
+    var aprovacoes = [];
+ 
+    var resultado1;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaGeral") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") && 
+        (acao == "simUltimos5anos" || acao == "naoPossui" || acao == "naoTemCerteza")) {
+      resultado1 = "Exclusão do ICMS da base de cálculo do Pis/Cofins";
+      aprovacoes.push(resultado1);
+    } else {}
+    
+ var resultado2;
+    if ((regime == "real") && 
+        (ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado2 = "Insumos";
+      aprovacoes.push(resultado2);
+    } else {}
+
+      var resultado3;
+    if ((regime == "real") && 
+        (ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "lojaMateriaisConstrucao" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "transportadora") && 
+        (pagou == "sim" || pagou == "somenteAlgunsPeriodos")) {
+      resultado3 = "Subvenção";
+      aprovacoes.push(resultado3);
+    } else {}
+
+ var resultado4;
+    if ((regime == "presumido") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaGeral")) {
+      resultado4 = "Exclusão do PIS/Cofins na BC do IRPJ e CSLL";
+      aprovacoes.push(resultado4);
+    } else {}
+
+      var resultado5;
+    if ((regime == "presumido") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria")) {
+      resultado5 = "Exclusão do ISS na BC do IRPJ e CSLL";
+      aprovacoes.push(resultado5);
+    } else {}
+
+  var resultado6;
+    if ((regime == "real") && 
+        (ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis")) {
+      resultado6 = "Crédito Diesel/GLP LC 192-22";
+      aprovacoes.push(resultado6);
+    } else {}
+  
+      var resultado7;
+    if ((regime == "real" || regime == "presumido") && 
+        (acao == "simExclusaoICMSAnterior2019" || acao == "simUltimos5anos")) {
+      resultado7 = "Não recolhimento do IRPJ e CSLL sobre correção SELIC";
+      aprovacoes.push(resultado7);
+    } else {}
+    
+     var resultado8;
+    if ((regime == "real" || regime == "presumido") && 
+        (funcionarios == "de15a50" || funcionarios == "de50a200" || funcionarios == "acima200")) {
+      resultado8 = "Verbas indenizatórias";
+      aprovacoes.push(resultado8);
+   } else {}
+
+   var resultado9;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado9 = "Exclusão do PIS/Cofins na própria base";
+      aprovacoes.push(resultado9);
+    } else {}
+
+   var resultado10;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado10 = "Exclusão ICMS-ST BC PIS/Cofins";
+      aprovacoes.push(resultado10);
+    } else {}
+ 
+    var resultado11;
+    if ((regime == "presumido") && 
+        (ramo == "clinicas")) {
+      resultado11 = "Equiparação a serviços hospitalares";
+      aprovacoes.push(resultado11);
+    } else {}
+
+   var resultado12;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "turismoHotelTransportePessoas")) {
+      resultado12 = "PERSE";
+      aprovacoes.push(resultado12);
+    } else {}
+ 
+    var resultado13;
+    if ((regime == "real") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "lojaMateriaisConstrucao") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado13 = "Perdas gerais";
+      aprovacoes.push(resultado13);
+    } else {}
+  
+     var resultado14;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "profissionalLiberal" || ramo == "clinicas")) {
+      resultado14 = "Exclusão do ISS da BC PIS/Cofins";
+      aprovacoes.push(resultado14);
+    } else {}
+   
+     var resultado15;
+    if (regime == "simplesNacional" && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "profissionalLiberal" || ramo == "clinicas")) {
+      resultado15 = "Simples Nacional (Produtos monofásicos)";
+      aprovacoes.push(resultado15);
+    } else {}
+
+
+    var resultado16;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaGeral") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado16 = "Crédito de IPI na compra de comercial atacadista";
+      aprovacoes.push(resultado16);
+    }else {}
+
+    var resultado17;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "clinicas") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado17 = "Gross Up";
+      aprovacoes.push(resultado17);
+    }else {}
+
+    var resultado18;
+    if ((regime == "real") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaGeral") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado18 = "Pis Cofins acumulado";
+      aprovacoes.push(resultado18);
+    }else {}
+
+    var resultado19;
+    if ((regime == "real") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "transportadora") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado19 = "Inclusão do IPI na base de cálculo PIS/COFINS dos créditos";
+      aprovacoes.push(resultado19);
+    }else {}
+
+    var resultado20;
+    if ((regime == "real") && 
+        (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "transportadora") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado20 = "Inclusão do ICMS na base de cálculo PIS/COFINS dos créditos";
+      aprovacoes.push(resultado20);
+    }else {}
+
+    var resultado21;
+    if ((regime == "real" || regime == "presumido") && 
+        (ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaGeral") && 
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado21 = "IPI acumulado saída não tributada";
+      aprovacoes.push(resultado21);
+    }else {}
+
+    var resultado22;
+    if ((regime == "real" || regime == "presumido") && (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "clinicas") &&
+        (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+      resultado22 = "Exclusão PIS e COFINS sobre receitas financeiras";
+      aprovacoes.push(resultado22);
+    }else {}
+
+    var resultado23;
+if ((regime == "real" || regime == "presumido") && 
+    (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao") && 
+    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+  resultado23 = "Crédito de PIS e Cofins sobre ICMS-ST das aquisições";
+  aprovacoes.push(resultado23);
+}else {}
+
+var resultado24;
+if (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") {
+  resultado24 = "Holding";
+  aprovacoes.push(resultado24);
+}else {}
+
+var resultado25;
+if (ramo == "profissionalLiberal") {
+  resultado25 = "INSS acima do teto - profissional liberal";
+  aprovacoes.push(resultado25);
+}else {}
+
+var resultado26;
+if ((regime == "real") && 
+    (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao") && 
+    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+  resultado26 = "Revisão fiscal de PIS/Cofins";
+  aprovacoes.push(resultado26);
+}else {}
+
+var resultado27;
+if (ramo == "produtorRural") {
+  resultado27 = "Crédito acumulado de ICMS (Possibilidade de transf. Terceiros)";
+  aprovacoes.push(resultado27);
+}else {}
+
+var resultado28;
+if (faturamento == "ate3.6milhoes" || "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") {
+  resultado28 = "Planejamento tributário";
+  aprovacoes.push(resultado28);
+}else {}
+
+
+
+
+
+
+
+
+
+
+
+
+      
+        var aprovacaoDiv = document.getElementById("aprovacao");
+
+for (var i = 0; i < aprovacoes.length; i++) {
+    var wrapper = document.createElement('div');
+    var div = document.createElement('div'); 
+    div.style.backgroundColor = '#0b436a';
+    div.style.padding = '10px';
+    div.style.color = 'white';
+    div.style.margin = '15px 0px';
+    div.style.borderRadius = '3px';
+    div.style.border = '1px solid #0b436a';
+    var icone = document.createElement('i');
+    icone.className = 'fa-regular fa-circle-check';
+    icone.style.color = '#25d366';
+    icone.style.fontSize = '23px';
+    icone.style.margin = '5px 5px 5px 55px';
+    div.appendChild(icone); // Adiciona o ícone ao div
+    div.innerHTML += aprovacoes[i]; // Adiciona o texto após o ícone
+    wrapper.appendChild(div); // Adiciona o div ao wrapper
+    aprovacaoDiv.appendChild(wrapper); // Adiciona o wrapper ao aprovacaoDiv
+
+    var after = document.createElement('div');
+    wrapper.appendChild(after); // Adiciona o after ao wrapper
+}};
+botaoVoltar2.onclick = function() {
+  tela2.style.display = 'none';
+  tela1.style.display = 'block';
+};
+
+//puxar dados pelo cnpj do site receitaws
+ function checkCnpj(cnpj) {
+  $.ajax({
+    url: 'https://www.receitaws.com.br/v1/cnpj/' + cnpj.replace(/\D/g, ''),
+    type: "GET",
+    dataType: 'jsonp',
+    success: function(data) {
+      if (data.nome == undefined) {
+        alert: data.status+''+data.message;
+      }else{
+        document.getElementById('razao').value = data.nome;      }
+    }
+  });
+}
+
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</html>
