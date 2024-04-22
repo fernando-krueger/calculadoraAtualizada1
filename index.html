@@ -154,6 +154,21 @@
    margin-top: 5px;
    background-color: white;
   }
+   #dados_usuarioCpf .dadoscpf p{
+   border: 1px solid #2e2e3f;
+   border-radius : 3px 3px 3px 3px;
+   padding: auto;
+   color: #2e2e3f;
+   padding:10px;
+   margin-top: 5px;
+   background-color: white;
+  }
+  .dadoscpf {
+
+   float: left;
+   width: 45%;
+   margin-bottom: 20px;    
+  } 
   .dados {
 
    float: left;
@@ -288,13 +303,37 @@
    <form id="tela2">
 
    	  <div id="tela2Cpf">
-		    <label  for="ramocpf">Ramo da Empresa:</label><br>
+		    <label  for="ramocpf">Ramo de atividade:</label><br>
 		    <select id="ramocpf" name="ramocpf">
 		     <option value="">Selecione o ramo da sua empresa...</option>
 					<option value="produtorRural">Produtor Rural (PF ou PJ)</option>
 					<option value="profissionalLiberal">Profissional liberal (Médico, Engenheiro, etc.)</option>
 				</select><br>
+	
+        <label for="faturamento">Faturamento Médio Anual:</label><br>
+        
+         
+          <select id="faturamentoCpf" name="faturamentoCpf">
+           <option value="">Selecione o faturamento anual...</option>
+           <option value="ate1milhao">Até R$ 1.000.000,00</option>
+           <option value="de1milhaoa12milhoes">De R$ 1.000.000,00 a R$ 2.000.000,00</option>
+           <option value="de2milhoesa3milhoes">De R$ 2.000.000,00 a R$ 3.600.000,00</option>
+           <option value="acima3milhoes">Acima de R$ 3.600.000,00</option>
+           </select><br>
+          
+
+          <label for="pagouirpf">Já pagou valores de IRPF?</label><br>
+          <select id="pagouirpf" name="pagouirpf">
+           <option value="">Selecione se teve valores pagos de IRPF...</option>
+           <option value="sim">Sim</option>
+           <option value="nao">Não</option>
+           <option value="somenteAlgunsPeriodos">Somente alguns períodos</option>
+          </select><br>
+
 	    </div>
+
+
+
 
 	   	<div id="tela2Cnpj">
 		    <label  for="ramo">Ramo da Empresa:</label><br>
@@ -320,7 +359,7 @@
 					<option value="transportadora">Transportadora</option>
 					<option value="turismoHotelTransportePessoas">Turismo / Hotel / Transporte de pessoas</option>
 				</select><br>
-			</div>
+			
 
 		
 	    <label for="faturamento">Faturamento Médio Anual:</label><br>
@@ -329,7 +368,7 @@
 	    	<select id="faturamentoSimples" name="faturamentoSimples">
 	     <option value="">Selecione o faturamento anual...</option>
 	     <option value="ate1milhao">Até R$ 1.000.000,00</option>
-	     <option value="de1milhaoa12milhoes">De R$ 1.000.000,00 a R$ 2.000.000,00</option>
+	     <option value="de1milhaoa2milhoes">De R$ 1.000.000,00 a R$ 2.000.000,00</option>
 	     <option value="de2milhoesa3milhoes">De R$ 2.000.000,00 a R$ 3.600.000,00</option>
 	     <option value="acima3milhoes">Acima de R$ 3.600.000,00</option>
 	     </select><br>
@@ -346,15 +385,15 @@
 	     </select><br>
     		</div>
 	    
-
-	    <label for="funcionarios">Número de Funcionários:</label><br>
-	    <select id="funcionarios" name="funcionarios">
-	     <option value="">Selecione o número de funcionários...</option>
-	     <option value="ate15">Até 15 funcionários</option>
-	     <option value="de15a50">De 15 a 50 funcionários</option>
-	     <option value="de50a200">De 50 a 200 funcionários</option>
-	     <option value="acima200">Acima de 200</option>
-	    </select><br>
+    	
+		    <label for="funcionarios">Número de Funcionários:</label><br>
+		    <select id="funcionarios" name="funcionarios">
+		     <option value="">Selecione o número de funcionários...</option>
+		     <option value="ate15">Até 15 funcionários</option>
+		     <option value="de15a50">De 15 a 50 funcionários</option>
+		     <option value="de50a200">De 50 a 200 funcionários</option>
+		     <option value="acima200">Acima de 200</option>
+		    </select><br>
 
 
 		    <label for="pagou">Pagou valores de IRPJ/CSLL desde 2018?</label><br>
@@ -374,16 +413,26 @@
 	     <option value="naoPossui">Não</option>
 	     <option value="naoTemCerteza">Não tem certeza</option>
 	    </select><br>
+      </div>
 	    <button id="btnvoltar" type="button">Voltar</button>
 	    <button onclick="testarVariaveis()" id="btn_prox" type="button">Simular agora!</button>
 	   </form>
+
+
 	   <!--terceira tela-->
 	   <div id="tela4" style="margin-right: 0px; display: none;">
 	    <img id="logo" src="C:\Users\Positivo\Desktop\projeto save\LOGO - RECUPERATAX.png" style="display: none;"> 
+
 	    <div id="dados_usuario" class="dados_usuario">
 	     <span class="dados"> CNPJ da empresa<p id="displaycnpj"></p></span>
 	     <span class="dados" style="float: right;"> Razão social<p id="displayrazao"></p></span> 
 	    </div>
+
+      <div id="dados_usuarioCpf" class="dados_usuarioCpf">
+       <span class="dadoscpf"> CPF<p id="displaycpf"></p></span>
+       <span class="dadoscpf" style="float: right;"> Nome<p id="displaynome"></p></span> 
+      </div>
+
 	    <h5 style="text-align:left; margin-top:10px; font-size: 15px; font-weight: 500 ;  clear: both;">Com base nos dados disponibilizados pela empresa, o diagnóstico prévio tem por objetivo mensurar as teses passíveis de recuperação tributária. 
 	    Segue abaixo as oportunidades:</h5>
 	    <div id="respostas">   
@@ -415,6 +464,8 @@ function showDiv(divId) {
     document.getElementById('selecaocpf').style.display = 'none';
     document.getElementById(divId).style.display = 'block';
     document.getElementById('selecaoLucro').style.display = 'none';
+
+    
 }
 function showFaturamento(divId) {
 
@@ -521,28 +572,34 @@ botaoSimular.onclick = function() {
  var ramoValue = document.getElementById('ramo').value.trim();
  var faturamentoValue = document.getElementById('faturamento').value.trim();
  var faturamentoSimplesValue = document.getElementById('faturamentoSimples').value.trim();
+ var faturamentoCpfValue = document.getElementById('faturamentoCpf').value.trim();
  var funcionariosValue = document.getElementById('funcionarios').value.trim();
  var pagouValue = document.getElementById('pagou').value.trim();
+ var pagouirpfValue = document.getElementById('pagouirpf').value.trim();
  var acaoValue = document.getElementById('acao').value.trim();
  if (ramoValue === '' && ramocpfValue === '') {
   alert('Por favor, digite o ramo da empresa.');
   tela2.style.display = 'block';
   tela3.style.display = 'none';
- } else if (faturamentoValue === '' && faturamentoSimplesValue === '' ) {
+ } else if (faturamentoValue === '' && faturamentoSimplesValue === '' && faturamentoCpfValue === ''  ) {
 
   alert('Por favor, digite o faturamento médio mensal.');
   tela2.style.display = 'block';
   tela3.style.display = 'none';
 }
- else if (funcionariosValue === '') {
+ else if (funcionariosValue === '' && document.getElementById('cnpjradio').checked ) {
   alert('Por favor, digite o número de funcionários.');
   tela2.style.display = 'block';
   tela3.style.display = 'none';
- } else if (pagouValue === '') {
+ } else if (pagouValue === '' && document.getElementById('cnpjradio').checked) {
   alert('Por favor, selecione se pagou valores de IRPJ/CSLL desde 2018.');
   tela2.style.display = 'block';
   tela3.style.display = 'none';
- } else if (acaoValue === '') {
+ }else if (pagouirpfValue === '' && document.getElementById('cpfradio').checked) {
+  alert('Por favor, selecione se pagou valores de IRPF desde 2018.');
+  tela2.style.display = 'block';
+  tela3.style.display = 'none';
+ } else if (acaoValue === '' && document.getElementById('cnpjradio').checked) {
   alert('Por favor, selecione se já tem ação de recuperação tributária.');
   tela2.style.display = 'block';
   tela3.style.display = 'none';
@@ -553,11 +610,14 @@ botaoSimular.onclick = function() {
 //tela 4 logica calculadora
 var cnpj = document.getElementById("cnpj").value;
 var razao = document.getElementById("razao").value;
+var cpf = document.getElementById("cpf").value;
+var nome = document.getElementById("nome").value;
 var regimeRadio = document.querySelector('input[name="regime"]:checked');
 var regime = regimeRadio ? regimeRadio.value : null;
 var ramo = document.getElementById("ramo").value;
 var ramocpf = document.getElementById("ramocpf").value;
 var faturamento = document.getElementById("faturamento").value;
+var faturamentoCpf = document.getElementById("faturamentoCpf").value;
 var faturamentoSimples = document.getElementById("faturamentoSimples").value;
 var pagou = document.getElementById("pagou").value;
 var funcionarios = document.getElementById("funcionarios").value;
@@ -566,8 +626,24 @@ var acao = document.getElementById("acao").value;
 var spanCnpj = document.getElementById('cnpj');
 var spanrazao = document.getElementById('razao');
 
-displaycnpj.textContent = cnpj;
-displayrazao.textContent = razao;
+var spanCpf = document.getElementById('cpf');
+var spannome = document.getElementById('nome');
+
+if (document.getElementById('cnpjradio').checked) {
+
+      document.getElementById('dados_usuario').style.display = 'block';
+      document.getElementById('dados_usuarioCpf').style.display = 'none';
+      displaycnpj.textContent = cnpj;
+      displayrazao.textContent = razao;
+
+    } else if (document.getElementById('cpfradio').checked) {
+      document.getElementById('dados_usuario').style.display = 'none';
+      document.getElementById('dados_usuarioCpf').style.display = 'block';
+      displaycpf.textContent = cpf;
+      displaynome.textContent = nome;
+    }
+
+
 
 var aprovacoes = [];
 
@@ -770,7 +846,7 @@ aprovacoes.push(resultado23);
 }else {}
 
 var resultado24;
-if (faturamentoSimples == "acima3milhoes" ||faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") {
+if (faturamentoCpf == "acima3milhoes" || faturamentoSimples == "acima3milhoes" ||faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") {
  resultado24 = "Holding";
  aprovacoes.push(resultado24);
 }else {}
@@ -796,7 +872,7 @@ if  (ramocpf == "produtorRural") {
 }else {}
 
 var resultado28;
-if (faturamento == "ate3.6milhoes" || "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") {
+if (faturamento == "ate3.6milhoes" || "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes" || faturamentoCpf == "acima3milhoes") {
  resultado28 = "Planejamento tributário";
  aprovacoes.push(resultado28);
 }else {}
