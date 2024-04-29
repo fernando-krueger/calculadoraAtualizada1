@@ -125,6 +125,8 @@
 
   /* tela 2  */
   /* Estiliza botão voltar 2 tela  */
+
+
   #btnvoltar{
    width: 20%;
    padding: 10px;
@@ -251,7 +253,7 @@
    <!--primeira tela-->
    <form class="" id="tela1" style="margin-top: -20px">
     <!--selectbox CPF e CNPJ-->
-    <label>Identificação Fiscal:</label><br>
+    <label>Indentificação Fiscal:</label><br>
    	<div id="cnpjPf" style="padding-top: 5px; margin-left:10px">
      <input type="radio" class="radio-input" id="cnpjradio" name="cnpjcpf" value="cnpjradio" onclick="showDiv('selecaocnpj'); uncheckRadio('cpfradio')" checked>
      <label for="cnpjradio">CNPJ</label>
@@ -303,7 +305,7 @@
           <select id="faturamentoCpf" name="faturamentoCpf">
            <option value="">Selecione o faturamento anual...</option>
            <option value="ate1milhao">Até R$ 1.000.000,00</option>
-           <option value="de1milhaoa12milhoes">De R$ 1.000.000,00 a R$ 2.000.000,00</option>
+           <option value="de1milhaoa2milhoes">De R$ 1.000.000,00 a R$ 2.000.000,00</option>
            <option value="de2milhoesa3milhoes">De R$ 2.000.000,00 a R$ 3.600.000,00</option>
            <option value="acima3milhoes">Acima de R$ 3.600.000,00</option>
            </select><br>
@@ -325,16 +327,16 @@
 		    <label  for="ramo">Ramo da Empresa:</label><br>
 		    <select id="ramo" name="ramo">
 		      <option value="">Selecione o ramo da sua empresa...</option>
-		      <option value="agroindustria">Agroindustria</option>
+		      <option value="agroindustria">Agroindústria</option>
 					<option value="barPadariaPizzariaRestaurante">Bar / Padaria / Pizzaria / Restaurante</option>
 					<option value="clinicas">Clínicas</option>
 					<option value="construtora">Construtora</option>
 					<option value="cosmeticosPerfumaria">Cosméticos e perfumaria</option>
-					<option value="distribuidoraGasCombustiveis">Distribuidora de gás e combustíveis</option>
-					<option value="distribuidorAlimentos">Distribuidor alimentos</option>
+					<option value="distribuidoraGasCombustiveis">Distribuidor de gás e combustíveis</option>
+					<option value="distribuidorAlimentos">Distribuidor de alimentos</option>
 					<option value="distribuidorMercadoriasGeral">Distribuidor de mercadorias em geral</option>
 					<option value="farmacias">Farmácias</option>
-					<option value="industriaAlimentos">Industria de alimentos</option>
+					<option value="industriaAlimentos">Indústria de alimentos</option>
 					<option value="industriaGeral">Indústria em geral</option>
 					<option value="lojaBebidas">Loja de bebidas</option>
 					<option value="lojaMateriaisConstrucao">Loja de materiais de construção</option>
@@ -360,7 +362,6 @@
 	    	<div id="selecaoLucro">
 	    	  <select id="faturamento" name="faturamento">
     	     <option value="">Selecione o faturamento anual...</option>
-    	     <option value="ate3.6milhoes">Até R$ 3.600.000,00</option>
     	     <option value="de3.6milhoesa10milhoes">De R$ 3.600.000,00 a R$ 10.000.000,00</option>
     	     <option value="de10milhoesa60milhoes">De R$ 10.000.000,00 a R$ 60.000.000,00</option>
     	     <option value="de60milhoesa150milhoes">De R$ 60.000.000,00 a R$ 150.000.000,00</option>
@@ -532,8 +533,8 @@ tela1.style.display = 'block';
 tela2.style.display = 'none';
 } 
 else
-
 */
+
 
  
   if (document.getElementById('cnpjradio').checked) {
@@ -634,83 +635,111 @@ if (document.getElementById('cnpjradio').checked) {
     }
 
   var aprovacoes = [];
+
   var resultado1;
+  if  (ramocpf == "produtorRural") {
+   resultado1 = "Crédito acumulado de ICMS (Possibilidade de transf. Terceiros)";
+   aprovacoes.push(resultado1);
+  }else {}
+
+    var resultado2;
+  if ((regime == "real") && 
+   (ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis")) {
+   resultado2 = "Crédito Diesel/GLP LC 192-22";
+  aprovacoes.push(resultado2);
+  } else {}
+
+   var resultado3;
+  if ((regime == "real" || regime == "presumido") && 
+   (ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral") && 
+   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+   resultado3 = "Crédito de IPI na compra de comercial atacadista";
+  aprovacoes.push(resultado3);
+  }else {}
+
+   var resultado4;
+  if ((regime == "real") && (ramo == "agroindustria" || ramo == "industriaAlimentos")) {
+   resultado4 = "Crédito Presumido de PIS e Cofins";
+   aprovacoes.push(resultado4);
+  }else {}
+
+    var resultado5;
   if (((regime == "real" || regime == "presumido") && 
-   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "transportadora" || ramo == "lojaPecasPneus" || ramo == "industriaAlimentos" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora") && 
+   ( ramo == "distribuidorAlimentos" ) && 
+   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) 
+   ||
+   (regime == "real" && ( ramo == "postoCombustivel" ||  ramo == "farmacias" ||  ramo == "mercado" ||  ramo == "distribuidorMercadoriasGeral" ||  ramo == "cosmeticosPerfumaria" || ramo == "distribuidoraGasCombustiveis" || ramo == "lojaMateriaisConstrucao" ) && (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) )
+  {
+   resultado5 = "Crédito de PIS e Cofins sobre ICMS-ST das aquisições";
+  aprovacoes.push(resultado5);
+  }else {}
+
+
+   var resultado6;
+  if ((regime == "presumido") && 
+   (ramo == "clinicas")) {
+   resultado6 = "Equiparação a serviços hospitalares (Redução no IRPJ/CSLL)";
+  aprovacoes.push(resultado6);
+  } else {}
+
+    var resultado7;
+  if (((regime == "real") && (ramo == "postoCombustivel"))
+    ||
+    ((regime == "real" || regime == "presumido" ) && (ramo == "distribuidoraGasCombustiveis"))) {
+   resultado7 = "Evaporação de combustíveis IRPJ/CSLL";
+   aprovacoes.push(resultado7);
+  }else {}
+
+  var resultado8;
+  if (((regime == "real" || regime == "presumido") && 
+   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "transportadora" || ramo == "lojaPecasPneus" || ramo == "industriaAlimentos" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora" || ramo == "lojaMateriaisConstrucao" || ramo == "barPadariaPizzariaRestaurante") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") && 
    (acao == "simUltimos5anos" || acao == "naoPossui" || acao == "naoTemCerteza"))
 
     ||
 
-    ((regime== "real") && (ramo== "lojaMateriaisConstrucao" || ramo == "cosmeticosPerfumaria" || ramo == "lojaBebidas")&& 
+    ((regime== "real") && (ramo == "cosmeticosPerfumaria" || ramo == "lojaBebidas")&& 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") && 
    (acao == "simUltimos5anos" || acao == "naoPossui" || acao == "naoTemCerteza")))
 
      {
-   resultado1 = "Exclusão do ICMS da base de cálculo do Pis/Cofins";
-  aprovacoes.push(resultado1);
-  } else {}
-
-  var resultado2;
-  if ((regime == "real") && 
-   (ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "industriaAlimentos" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "mineracao"  || ramo == "transportadora") && 
-   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado2 = "Insumos";
-  aprovacoes.push(resultado2);
-  } else {}
-
-  var resultado3;
-  if ((regime == "real") && 
-   (ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "industriaAlimentos" || ramo == "distribuidoraGasCombustiveis" || ramo == "lojaMateriaisConstrucao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora") && 
-   (pagou == "sim" || pagou == "somenteAlgunsPeriodos")) {
-   resultado3 = "Subvenção";
-  aprovacoes.push(resultado3);
-  } else {}
-
-  var resultado4;
-  if ((regime == "presumido") && 
-   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" ||  ramo == "postoCombustivel" || ramo == "construtora" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora" || ramo == "industriaAlimentos" || ramo == "construtora" || ramo == "transportadora" || ramo == "barPadariaPizzariaRestaurante" )) {
-   resultado4 = "Exclusão do PIS/Cofins na BC do IRPJ e CSLL";
-  aprovacoes.push(resultado4);
-  } else {}
-
-  var resultado5;
-  if ((regime == "presumido") && 
-   (ramo == "turismoHotelTransportePessoas" || ramo == "distribuidorAlimentos" || ramo == "industriaAlimentos" || ramo == "lojaPecasPneus" || ramo == "mineracao" ||  ramo == "agroindustria" )) {
-   resultado5 = "Exclusão do ISS na BC do IRPJ e CSLL";
-  aprovacoes.push(resultado5);
-  } else {}
-
-  var resultado6;
-  if ((regime == "real") && 
-   (ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis")) {
-   resultado6 = "Crédito Diesel/GLP LC 192-22";
-  aprovacoes.push(resultado6);
-  } else {}
-
-  var resultado7;
-  if ((regime == "real" || regime == "presumido") && 
-   (acao == "simExclusaoICMSAnterior2019" || acao == "simUltimos5anos")) {
-   resultado7 = "Não recolhimento do IRPJ e CSLL sobre correção SELIC";
-  aprovacoes.push(resultado7);
-  } else {}
-
-  var resultado8;
-  if ((regime == "real" || regime == "presumido") && 
-   (funcionarios == "de15a50" || funcionarios == "de50a200" || funcionarios == "acima200")) {
-   resultado8 = "Verbas indenizatórias";
+   resultado8 = "Exclusão do ICMS da base de cálculo do Pis/Cofins";
   aprovacoes.push(resultado8);
   } else {}
 
   var resultado9;
-  if ((regime == "real" || regime == "presumido") && 
-   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "construtora" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas") && 
-   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado9 = "Exclusão do PIS/Cofins na própria base";
+  if (((regime == "real" || regime == "presumido") && 
+   ( ramo == "distribuidorAlimentos" || ramo == "turismoHotelTransportePessoas" || ramo == "produtorRural" || ramo == "clinicas"))
+   ||
+   (regime== "real" && (ramo=="farmacias" || ramo == "transportadora" )  ))
+    {
+   resultado9 = "Exclusão do ISS da BC PIS/Cofins";
   aprovacoes.push(resultado9);
   } else {}
 
+
   var resultado10;
+  if (((regime == "presumido") && 
+   (ramo == "turismoHotelTransportePessoas" || ramo == "distribuidorAlimentos" || ramo == "industriaAlimentos" ||  ramo == "agroindustria" ))
+    ||
+    (regime == "presumido" || regime == "real") && (ramo == "construtora" || ramo == "transportadora")
+    ) {
+   resultado10 = "Exclusão do ISS na BC do IRPJ e CSLL";
+  aprovacoes.push(resultado10);
+  } else {}
+
+   var resultado11;
+  if (((regime == "presumido") && 
+   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" ||  ramo == "postoCombustivel" || ramo == "construtora" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora" || ramo == "industriaAlimentos" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" ))
+    ||
+    (regime == "presumido" || regime == "real") && (ramo == "construtora" || ramo == "transportadora")
+    )
+   {
+   resultado11 = "Exclusão do PIS/Cofins na BC do IRPJ e CSLL";
+  aprovacoes.push(resultado11);
+  } else {}
+
+    var resultado12;
   if( ((regime == "real" || regime == "presumido") && 
    (ramo == "transportadora" || ramo == "barPadariaPizzariaRestaurante" || ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") ) 
@@ -718,166 +747,201 @@ if (document.getElementById('cnpjradio').checked) {
    (regime == "real" && ramo=="lojaBebidas"  && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) )
    {
-   resultado10 = "Exclusão ICMS-ST BC PIS/Cofins";
-  aprovacoes.push(resultado10);
-
-  } else {}
-
-  var resultado11;
-  if ((regime == "presumido") && 
-   (ramo == "clinicas")) {
-   resultado11 = "Equiparação a serviços hospitalares (Redução no IRPJ/CSLL)";
-  aprovacoes.push(resultado11);
-  } else {}
-
-  var resultado12;
-  if ((regime == "real" || regime == "presumido") && 
-   (ramo == "turismoHotelTransportePessoas")) {
-   resultado12 = "PERSE";
+   resultado12 = "Exclusão ICMS-ST BC PIS/Cofins";
   aprovacoes.push(resultado12);
+
   } else {}
 
   var resultado13;
-  if ((regime == "real") && 
-   (ramo == "cosmeticosPerfumaria" || ramo == "lojaBebidas" || ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "lojaMateriaisConstrucao") && 
+  if ((regime == "real" || regime == "presumido") && 
+   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "construtora" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado13 = "Perdas gerais(redução no IRPJ/CSLL)";
+   resultado13 = "Exclusão do PIS/Cofins na própria base";
   aprovacoes.push(resultado13);
   } else {}
 
-  var resultado14;
-  if (((regime == "real" || regime == "presumido") && 
-   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "turismoHotelTransportePessoas" || ramo == "lojaPecasPneus" || ramo == "mineracao" || ramo == "produtorRural" || ramo == "industriaAlimentos"  || ramo == "agroindustria"))
-   ||
-   (regime== "real" && (ramo=="farmacias" || ramo=="cosmeticosPerfumaria" )  ))
-    {
-   resultado14 = "Exclusão do ISS da BC PIS/Cofins";
+
+   var resultado14;
+  if ((regime == "real" || regime == "presumido") && (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "clinicas") &&
+   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+   resultado14 = "Exclusão PIS e COFINS sobre receitas financeiras";
   aprovacoes.push(resultado14);
-  } else {}
+  }else {}
 
   var resultado15;
-  if (regime == "simplesNacional" && 
-   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "clinicas" )) {
-   resultado15 = "Simples Nacional (Produtos monofásicos)";
-  aprovacoes.push(resultado15);
-  } else {}
-
-
-  var resultado16;
   if ((regime == "real" || regime == "presumido") && 
-   (ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral") && 
-   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado16 = "Crédito de IPI na compra de comercial atacadista";
-  aprovacoes.push(resultado16);
+   ( ramo == "industriaAlimentos" || ramo == "agroindustria" || ramo == "mercado" || ramo == "barPadariaPizzariaRestaurante" || ramo == "transportadora" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "mineracao" || ramo == "farmacias" || ramo == "industriaGeral" || ramo == "distribuidorMercadoriasGeral" || ramo == "lojaMateriaisConstrucao" || ramo == "cosmeticosPerfumaria" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus") && 
+   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes"))
+   
+   
+    {
+   resultado15 = "Gross Up";
+  aprovacoes.push(resultado15);
+  }else {}
+
+    var resultado16;
+  if ((   faturamentoCpf == "acima3milhoes" ||  faturamentoSimples == "acima3milhoes" ||faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")
+    ||
+  (( faturamentoCpf == "de1milhaoa2milhoes" || faturamentoCpf == "de2milhoesa3milhoes" || faturamentoSimples == "de1milhaoa2milhoes" || faturamentoSimples == "de2milhoesa3milhoes") && (ramocpf == "profissionalLiberal" || ramocpf == "produtorRural")))
+   {
+   resultado16 = "Holding";
+   aprovacoes.push(resultado16);
   }else {}
 
   var resultado17;
-  if (((regime == "real" || regime == "presumido") && 
-   (ramo == "mercado" || ramo == "barPadariaPizzariaRestaurante" || ramo == "transportadora" || ramo == "postoCombustivel") && 
+  if (((regime == "real") && 
+   (ramo == "mercado" || ramo == "barPadariaPizzariaRestaurante" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "lojaBebidas" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "industriaAlimentos" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes"))
-   ||
-   (regime == "real" && (ramo == "lojaMateriaisConstrucao" || ramo == "cosmeticosPerfumaria" || ramo == "lojaBebidas") && (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") ))
-    {
-   resultado17 = "Gross Up";
+    ||
+    (regime == "real" || regime == "presumido") && ramo == "postoCombustivel" 
+    ) {
+   resultado17 = "Inclusão do ICMS na base de cálculo PIS/COFINS dos créditos";
   aprovacoes.push(resultado17);
   }else {}
 
   var resultado18;
   if ((regime == "real") && 
-   ( ramo == "distribuidorAlimentos" || ramo == "mineracao" || ramo == "industriaAlimentos" ||  ramo == "agroindustria" || ramo == "industriaGeral") && 
+   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "barPadariaPizzariaRestaurante" || ramo == "lojaBebidas" || ramo == "distribuidorMercadoriasGeral" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "industriaAlimentos" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "transportadora" || ramo == "postoCombustivel") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado18 = "Pis Cofins acumulado";
+   resultado18 = "Inclusão do IPI na base de cálculo PIS/COFINS dos créditos";
   aprovacoes.push(resultado18);
   }else {}
 
-  var resultado19;
+   var resultado19;
   if ((regime == "real") && 
-   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "barPadariaPizzariaRestaurante" || ramo == "lojaBebidas" || ramo == "distribuidorMercadoriasGeral" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "industriaAlimentos" || ramo == "agroindustria" || ramo == "industriaGeral" || ramo == "transportadora") && 
+   (ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "industriaAlimentos" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "mineracao"  || ramo == "transportadora") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado19 = "Inclusão do IPI na base de cálculo PIS/COFINS dos créditos";
+   resultado19 = "Insumos";
   aprovacoes.push(resultado19);
-  }else {}
+  } else {}
 
-  var resultado20;
-  if ((regime == "real") && 
-   (ramo == "mercado" || ramo == "barPadariaPizzariaRestaurante" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "lojaBebidas" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "industriaAlimentos" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora") && 
-   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado20 = "Inclusão do ICMS na base de cálculo PIS/COFINS dos créditos";
-  aprovacoes.push(resultado20);
-  }else {}
-
-  var resultado21;
+   var resultado220;
   if ((regime == "real" || regime == "presumido") && 
    (ramo == "mineracao" || ramo == "industriaAlimentos" || ramo == "agroindustria" || ramo == "industriaGeral") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado21 = "IPI acumulado saída não tributada";
-  aprovacoes.push(resultado21);
+   resultado20 = "IPI acumulado saída não tributada";
+  aprovacoes.push(resultado20);
+  }else {}
+
+     var resultado21;
+  if (ramocpf == "profissionalLiberal") {
+   resultado21 = "INSS acima do teto - profissional liberal";
+   aprovacoes.push(resultado21);
   }else {}
 
   var resultado22;
-  if ((regime == "real" || regime == "presumido") && (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "clinicas") &&
-   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado22 = "Exclusão PIS e COFINS sobre receitas financeiras";
-  aprovacoes.push(resultado22);
+  if (regime == "real") {
+   resultado22 = "Juros sobre Capital Próprio (JCP)";
+   aprovacoes.push(resultado22);
   }else {}
 
-  var resultado23;
-  if (((regime == "real" || regime == "presumido") && 
-   ( ramo == "distribuidorAlimentos" || ramo == "transportadora" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao") && 
-   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) 
-   ||
-   (regime == "real" && ( ramo == "postoCombustivel" ||  ramo == "farmacias" ||  ramo == "mercado" ||  ramo == "distribuidorMercadoriasGeral" ||  ramo == "cosmeticosPerfumaria" ) && (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) )
-  {
-   resultado23 = "Crédito de PIS e Cofins sobre ICMS-ST das aquisições";
+     var resultado23;
+  if ((regime == "real" || regime == "presumido") && 
+   (acao == "simExclusaoICMSAnterior2019" || acao == "simUltimos5anos")) {
+   resultado23 = "Não recolhimento do IRPJ e CSLL sobre correção SELIC";
   aprovacoes.push(resultado23);
-  }else {}
+  } else {}
 
-  var resultado24;
-  if (faturamentoCpf == "acima3milhoes" || faturamentoSimples == "acima3milhoes" ||faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes") {
-   resultado24 = "Holding";
-   aprovacoes.push(resultado24);
-  }else {}
-
-  var resultado25;
-  if (ramocpf == "profissionalLiberal") {
-   resultado25 = "INSS acima do teto - profissional liberal";
-   aprovacoes.push(resultado25);
-  }else {}
-
-  var resultado26;
+    var resultado24;
   if ((regime == "real") && 
-   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "clinicas" || ramo == "mineracao") && 
+   (ramo == "cosmeticosPerfumaria" || ramo == "lojaBebidas" || ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "lojaMateriaisConstrucao" || ramo == "barPadariaPizzariaRestaurante") && 
    (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
-   resultado26 = "Revisão fiscal de PIS/Cofins";
+   resultado24 = "Perdas Gerais (Redução no IRPJ/CSLL)";
+  aprovacoes.push(resultado24);
+  } else {}
+
+   var resultado25;
+  if ((regime == "real" || regime == "presumido") && 
+   (ramo == "turismoHotelTransportePessoas")) {
+   resultado25 = "PERSE";
+  aprovacoes.push(resultado25);
+  } else {}
+
+    var resultado26;
+  if (((regime == "real") && 
+   ( ramo == "distribuidorAlimentos" || ramo == "industriaAlimentos" ||  ramo == "agroindustria" || ramo == "industriaGeral") && 
+   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes"))
+    ||
+    (regime == "real" || regime == "presumido" ) && ( ramo == "mineracao") && 
+   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+   resultado26 = "Pis Cofins acumulado";
   aprovacoes.push(resultado26);
   }else {}
 
+
   var resultado27;
-  if  (ramocpf == "produtorRural") {
-   resultado27 = "Crédito acumulado de ICMS (Possibilidade de transf. Terceiros)";
+  if (faturamento == "ate3.6milhoes" || "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes" || faturamentoCpf == "acima3milhoes") {
+   resultado27 = "Planejamento tributário";
    aprovacoes.push(resultado27);
   }else {}
 
-  var resultado28;
-  if (faturamento == "ate3.6milhoes" || "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes" || faturamentoCpf == "acima3milhoes") {
-   resultado28 = "Planejamento tributário";
-   aprovacoes.push(resultado28);
+   var resultado28;
+  if ((regime == "real") && 
+   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "lojaMateriaisConstrucao" || ramo == "clinicas") && 
+   (faturamento == "de3.6milhoesa10milhoes" || faturamento == "de10milhoesa60milhoes" || faturamento == "de60milhoesa150milhoes" || faturamento == "acima150milhoes")) {
+   resultado28 = "Revisão fiscal de PIS/Cofins";
+  aprovacoes.push(resultado28);
   }else {}
-  var resultado29;
-  if ((regime == "real") && (ramo == "agroindustria" || ramo == "industriaAlimentos")) {
-   resultado29 = "Crédito Presumido de PIS e Cofins";
-   aprovacoes.push(resultado29);
-  }else {}
-  var resultado29;
-  if ((regime == "real") && (ramo == "postoCombustivel")) {
-   resultado29 = "Evaporação de combustíveis IRPJ/CSLL";
-   aprovacoes.push(resultado29);
-  }else {}
+
+   var resultado29;
+  if (regime == "simplesNacional" && 
+   (ramo == "mercado" || ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "postoCombustivel" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "mineracao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "barPadariaPizzariaRestaurante" || ramo == "turismoHotelTransportePessoas" || ramo == "construtora" || ramo == "transportadora" || ramo == "clinicas" )) {
+   resultado29 = "Simples Nacional (Produtos monofásicos)";
+  aprovacoes.push(resultado29);
+  } else {}
+
   var resultado30;
-  if (regime == "real") {
-   resultado30 = "Juros sobre Capital Próprio (JCP)";
-   aprovacoes.push(resultado30);
-  }else {}
+  if ((regime == "real") && 
+   (ramo == "distribuidorAlimentos" || ramo == "distribuidorMercadoriasGeral" || ramo == "industriaAlimentos" || ramo == "distribuidoraGasCombustiveis" || ramo == "lojaMateriaisConstrucao" || ramo == "agroindustria" || ramo == "industriaAlimentos" || ramo == "industriaGeral" || ramo == "transportadora") && 
+   (pagou == "sim" || pagou == "somenteAlgunsPeriodos")) {
+   resultado30 = "Subvenção";
+  aprovacoes.push(resultado30);
+  } else {}
+
+  var resultado31;
+  if ((regime == "real" || regime == "presumido") && 
+   (funcionarios == "de15a50" || funcionarios == "de50a200" || funcionarios == "acima200")) {
+   resultado31 = "Verbas indenizatórias";
+  aprovacoes.push(resultado31);
+  } else {}
+
+  
+
+
+ 
+
+ 
+
+ 
+
+  
+ 
+
+ 
+
+  
+
+
+
+  
+  
+
+ 
+
+ 
+
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+  
 
 
 var aprovacaoDiv = document.getElementById("aprovacao");
