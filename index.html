@@ -327,8 +327,8 @@
 
             <div id="selecaoSimples">
 
-                <label  for="ramo">Ramo da Empresa:</label><br>
-                <select id="ramo" name="ramo">
+                <label  for="ramo">Ramo da Empresa Simples Nacional:</label><br>
+                <select id="ramosimples" name="ramosimples">
                     <option value="">Selecione o ramo da sua empresa...</option>
                     <option value="agroindustria">Agroindústria</option>
                     <option value="barPadariaPizzariaRestaurante">Bar / Padaria / Pizzaria / Restaurante</option>
@@ -427,7 +427,7 @@
         </select><br>
         </div>
         <button id="btnvoltar" type="button">Voltar</button>
-        <button onclick="testarVariaveis()" id="btn_prox" type="button">Simular Agora!</button>
+        <button onclick="testarVariaveis()" onclick="enviarEmail()" id="btn_prox" type="button">Simular Agora!</button>
        </form>
 
 
@@ -595,6 +595,7 @@ botaoVoltar2.onclick = function() {
 botaoSimular.onclick = function() {
  var ramocpfValue = document.getElementById('ramocpf').value.trim();
  var ramoValue = document.getElementById('ramo').value.trim();
+ var ramosimplesValue = document.getElementById('ramosimples').value.trim();
  var faturamentoValue = document.getElementById('faturamento').value.trim();
  var faturamentoSimplesValue = document.getElementById('faturamentoSimples').value.trim();
  var faturamentoCpfValue = document.getElementById('faturamentoCpf').value.trim();
@@ -603,7 +604,7 @@ botaoSimular.onclick = function() {
  var pagouirpfValue = document.getElementById('pagouirpf').value.trim();
  var acaoValue = document.getElementById('acao').value.trim();
  //verifica se alguma das perguntas não foi respondida
- if (ramoValue === '' && ramocpfValue === '') {
+ if (ramoValue === '' && ramocpfValue === '' && ramosimplesValue === '' ) {
   alert('Por favor, digite o ramo da empresa.');
   tela2.style.display = 'block';
   tela3.style.display = 'none';
@@ -642,6 +643,7 @@ var nome = document.getElementById("nome").value;
 var regimeRadio = document.querySelector('input[name="regime"]:checked');
 var regime = regimeRadio ? regimeRadio.value : null;
 var ramo = document.getElementById("ramo").value;
+var ramosimples = document.getElementById("ramosimples").value;
 var ramocpf = document.getElementById("ramocpf").value;
 var faturamento = document.getElementById("faturamento").value;
 var faturamentoCpf = document.getElementById("faturamentoCpf").value;
@@ -912,7 +914,7 @@ if (document.getElementById('cnpjradio').checked) {
 
    var resultado29;
   if (regime == "simplesNacional" && 
-   (ramo == "minimercado" || ramo == "distribuidoraGasCombustiveis" || ramo == "cosmeticosPerfumaria" || ramo == "farmacias" || ramo == "lojaBebidas" || ramo == "lojaPecasPneus" || ramo == "barPadariaPizzariaRestaurante"  )) {
+   (ramosimples == "minimercado" || ramosimples == "distribuidoraGasCombustiveis" || ramosimples == "cosmeticosPerfumaria" || ramosimples == "farmacias" || ramosimples == "lojaBebidas" || ramosimples == "lojaPecasPneus" || ramosimples == "barPadariaPizzariaRestaurante"  )) {
    resultado29 = "Simples Nacional (Produtos monofásicos)";
   aprovacoes.push(resultado29);
   } else {}
@@ -1014,6 +1016,32 @@ function checkCnpj(cnpj) {
    }
   });
 }
+
+//enviar email
+
+function enviarEmail(){
+    (function(){
+        emaljs.init("cff1167db33ce55692c066f40131ebcc");
+    })();
+    var params = {
+        sendername: document.querySelector("#nome").value,
+        to: document.querySelector("#to").value,
+        subject: document.querySelector("#subject").value,
+        replyto: document.querySelector("#replyto").value,
+        message: document.querySelector("#message").value
+    };
+
+
+
+}
+
+
+
+
+
+
+
+
 
 
 </script>
